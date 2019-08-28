@@ -12,7 +12,11 @@ const dom = {
   submit: document.getElementById("submit"),
 };
 
-const db = firebase.initializeApp({ projectId: "firestore-emulator-example" }).firestore();
+const app = firebase.initializeApp({ projectId: "firestore-emulator-example" });
+const accessToken = 'eyJhbGciOiJub25lIiwia2lkIjoiZmFrZWtpZCJ9.eyJzdWIiOiJhbGljZSIsImlhdCI6MCwiYWRtaW4iOnRydWV9.';
+app.INTERNAL.getToken = () => Promise.resolve({ accessToken });
+
+const db = app.firestore();
 db.settings({ host: "localhost:50051", ssl: false });
 
 function submit() {
